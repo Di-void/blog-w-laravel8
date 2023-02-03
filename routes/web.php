@@ -22,12 +22,15 @@ Route::get('/', [PagesController::class, 'index'])->name('pages.index');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 // To single blog page
 Route::get('/blog/single-blog-post', [BlogController::class, 'show'])->name('blog.show');
+// To create blog post
+Route::get('/blog/create', [BlogController::class, 'create'])->name('blog.create');
 // To about page
 Route::get('/about', function() {
    return view('about');
 })->name('about');
 // To contact page
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
