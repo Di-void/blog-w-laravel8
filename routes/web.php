@@ -20,10 +20,10 @@ use \App\Http\Controllers\ContactController;
 Route::get('/', [PagesController::class, 'index'])->name('pages.index');
 // To blog page
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
-// To single blog page
-Route::get('/blog/{post:slug}', [BlogController::class, 'show'])->name('blog.show');
 // To create blog post
 Route::get('/blog/create', [BlogController::class, 'create'])->name('blog.create');
+// To single blog page
+Route::get('/blog/{post:slug}', [BlogController::class, 'show'])->name('blog.show');
 // To store blog post to database
 Route::post('/blog', [BlogController::class, 'store'])->name('blog.store');
 // To about page

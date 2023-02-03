@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 class BlogController extends Controller
 {
     public function index () {
-        $posts = Post::all();
+        $posts = Post::latest()->get();
         return view('blog-posts.blog', compact('posts'));
     }
     public function create () {
@@ -24,7 +24,8 @@ class BlogController extends Controller
         ]);
 
         $title = $request->input('title');
-        $slug = Str::slug($title, '-');
+        $postId = Post::latest()->take(1)->first()->id + 1;
+        $slug = Str::slug($title, '-') . "-" . $postId;
         $user_id = Auth::user()->id;
         $body = $request->input('body');
 
@@ -44,8 +45,13 @@ class BlogController extends Controller
         return redirect()->back()->with('status', 'Post Created Successfully');
     }
 
-    public function show ($slug) {
-        $post = Post::where('slug', $slug)->first();
+//    public function show ($slug) {
+//        $post = Post::where('slug', $slug)->first();
+//        return view('blog-posts.single-blog', compact('post'));
+//    }
+
+    // Using Route Model Binding
+    public function show(Post $post) {
         return view('blog-posts.single-blog', compact('post'));
     }
 }
