@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
+
+    // we have a post and it belongsTo a user
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }
