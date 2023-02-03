@@ -21,7 +21,7 @@ Route::get('/', [PagesController::class, 'index'])->name('pages.index');
 // To blog page
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 // To single blog page
-Route::get('/blog/single-blog-post', [BlogController::class, 'show'])->name('blog.show');
+Route::get('/blog/{post:slug}', [BlogController::class, 'show'])->name('blog.show');
 // To create blog post
 Route::get('/blog/create', [BlogController::class, 'create'])->name('blog.create');
 // To store blog post to database

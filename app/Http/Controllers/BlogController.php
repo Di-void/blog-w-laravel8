@@ -10,7 +10,8 @@ use Illuminate\Support\Str;
 class BlogController extends Controller
 {
     public function index () {
-        return view('blog-posts.blog');
+        $posts = Post::all();
+        return view('blog-posts.blog', compact('posts'));
     }
     public function create () {
         return view('blog-posts.create-blog-post');
@@ -43,7 +44,8 @@ class BlogController extends Controller
         return redirect()->back()->with('status', 'Post Created Successfully');
     }
 
-    public function show () {
-        return view('blog-posts.single-blog');
+    public function show ($slug) {
+        $post = Post::where('slug', $slug)->first();
+        return view('blog-posts.single-blog', compact('post'));
     }
 }
