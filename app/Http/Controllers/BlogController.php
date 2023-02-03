@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 class BlogController extends Controller
 {
     public function index () {
-        return view('blog');
+        return view('blog-posts.blog');
     }
     public function create () {
-        return view('create-blog-post');
+        return view('blog-posts.create-blog-post');
     }
 
     public function show () {
-        return view('single-blog');
+        return view('blog-posts.single-blog');
     }
 }
