@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\BlogController;
-use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\PagesController;
+use \App\Http\Controllers\BlogController;
+use \App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,20 +17,20 @@ use \App\Http\Controllers\PagesController;
 */
 
 // To welcome page
-Route::get('/', [PagesController::class, 'index']);
-
-// To Blog Page
-Route::get('/blog', [BlogController::class, 'index']);
-// TO single blog post
-Route::get('/blog/single-blog-post', [BlogController::class, 'show']);
+Route::get('/', [PagesController::class, 'index'])->name('pages.index');
+// To blog page
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+// To single blog page
+Route::get('/blog/single-blog-post', [BlogController::class, 'show'])->name('blog.show');
 // To about page
 Route::get('/about', function() {
-    return view('about');
-});
+   return view('about');
+})->name('about');
+// To contact page
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 
-// To Contact Page
-Route::get('/contact', [ContactController::class, 'index']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
-
-// Pattern is integer
-//Route::get('/products/{id}', [PagesController::class, 'show'])->where('id', '[0-9]+');
+require __DIR__.'/auth.php';
