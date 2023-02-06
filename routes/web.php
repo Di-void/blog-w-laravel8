@@ -39,6 +39,8 @@ Route::get('/about', function() {
 })->name('about');
 // To contact page
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+// To store user message from contact Page
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 // Category Resource controller
 Route::resource('/categories', CategoryController::class);
