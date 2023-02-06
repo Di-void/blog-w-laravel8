@@ -4,9 +4,7 @@
     <!-- main -->
     <main class="container">
         <h2 class="header-title">All Blog Posts</h2>
-        @if(session('status'))
-            <p style="color: #fff; width: 100%; font-size: 18px; font-weight: 600; text-align:center; background: #5cb85c; padding: 17px 0; margin-bottom: 6px;" >{{session('status')}}</p>
-        @endif
+        @include('includes.flash-message')
         <div class="searchbar">
             <form action="">
                 <input type="text" placeholder="Search..." name="search" />
@@ -19,10 +17,9 @@
         </div>
         <div class="categories">
             <ul>
-                <li><a href="">Health</a></li>
-                <li><a href="">Entertainment</a></li>
-                <li><a href="">Sports</a></li>
-                <li><a href="">Nature</a></li>
+                @foreach($categories as $category)
+                    <li><a href="">{{$category->name}}</a></li>
+                @endforeach
             </ul>
         </div>
         <section class="cards-blog latest-blog">
@@ -53,16 +50,6 @@
                 <p>Sorry, currently there is no blog post related to that search!</p>
             @endforelse
         </section>
-        <!-- pagination -->
-{{--        <div class="pagination" id="pagination">--}}
-{{--            <a href="">&laquo;</a>--}}
-{{--            <a class="active" href="">1</a>--}}
-{{--            <a href="">2</a>--}}
-{{--            <a href="">3</a>--}}
-{{--            <a href="">4</a>--}}
-{{--            <a href="">5</a>--}}
-{{--            <a href="">&raquo;</a>--}}
-{{--        </div>--}}
         {{$posts->links('pagination::default')}}
 <br/>
     </main>
