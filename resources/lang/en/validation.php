@@ -141,6 +141,9 @@ return [
         ],
         'image' => [
             'image' => 'The file must be an image'
+        ],
+        'category_id' => [
+            'required' => 'The category field is required'
         ]
     ],
 

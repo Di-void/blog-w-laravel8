@@ -17,30 +17,44 @@
                     <label for="title"> <span>Title</span> </label>
                     <input type="text" id="title" name="title" value="{{old('title')}}">
                     @error('title')
-                    {{-- The $attributeValue field is/must be $validationRule --}}
-                    <p style="color: red; margin-bottom: 25px;">
-                        {{$message}}
-                    </p>
+                        {{-- The $attributeValue field is/must be $validationRule --}}
+                        <p style="color: red; margin-bottom: 25px;">
+                            {{$message}}
+                        </p>
                     @enderror
 
                     <!-- Image -->
                     <label for="image"> <span>Image</span> </label>
                     <input type="file" id="image" name="image">
                     @error('image')
-                    {{-- The $attributeValue field is/must be $validationRule --}}
-                    <p style="color: red; margin-bottom: 25px;">
-                        {{$message}}
-                    </p>
-                @enderror
+                        {{-- The $attributeValue field is/must be $validationRule --}}
+                        <p style="color: red; margin-bottom: 25px;">
+                            {{$message}}
+                        </p>
+                    @enderror
+
+                    <label for="categories"><span>Choose a category:</span></label>
+                    <select name="category_id" id="categories">
+                        <option selected disabled>Select option </option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('category_id')
+                        {{-- The $attributeValue field is/must be $validationRule --}}
+                        <p style="color: red; margin-bottom: 25px;">
+                            {{$message}}
+                        </p>
+                    @enderror
 
                     <!-- Body -->
                     <label for="body"> <span>Body</span> </label>
                     <textarea id="body" name="body">{{old('body')}}</textarea>
                     @error('body')
-                    {{-- The $attributeValue field is/must be $validationRule --}}
-                    <p style="color: red; margin-bottom: 25px;">
-                        {{$message}}
-                    </p>
+                        {{-- The $attributeValue field is/must be $validationRule --}}
+                        <p style="color: red; margin-bottom: 25px;">
+                            {{$message}}
+                        </p>
                 @enderror
 
                     <!-- Button -->
