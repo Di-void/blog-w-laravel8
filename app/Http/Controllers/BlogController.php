@@ -20,7 +20,7 @@ class BlogController extends Controller
             $posts = Post::where('title', 'like', '%' . $request->search . '%')
             ->orWhere('body', 'like', '%' . $request->search . '%')->latest()->paginate(4);
         } elseif ($request->category) {
-            $posts = Category::where('name', $request->category)->firstOrFail()->posts->paginate(3)->withQueryString();
+            $posts = Category::where('name', $request->category)->firstOrFail()->posts()->paginate(3)->withQueryString();
         } else {
             $posts = Post::latest()->paginate(4);
         }
@@ -116,7 +116,11 @@ class BlogController extends Controller
 
     // Using Route Model Binding
     public function show(Post $post) {
-        return view('blog-posts.single-blog', compact('post'));
+        $category = $post->category;
+
+        // fetch related posts
+        $relatedPosts = $category->posts()->where('id', '!=', $post->id)->latest()->take(3)->get();
+        return view('blog-posts.single-blog', compact('post', 'relatedPosts'));
     }
 
     public function destroy(Post $post) {
