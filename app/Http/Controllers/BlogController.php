@@ -11,11 +11,17 @@ class BlogController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['index']);
+        $this->middleware('auth')->except(['index', 'show']);
     }
 
-    public function index () {
-        $posts = Post::latest()->get();
+    public function index (Request $request) {
+        if($request->search) {
+            $posts = Post::where('title', 'like', '%' . $request->search . '%')
+            ->orWhere('body', 'like', '%' . $request->search . '%')->latest()->get();
+        } else {
+            $posts = Post::latest()->get();
+        }
+
         return view('blog-posts.blog', compact('posts'));
     }
     public function create () {
@@ -96,5 +102,10 @@ class BlogController extends Controller
     // Using Route Model Binding
     public function show(Post $post) {
         return view('blog-posts.single-blog', compact('post'));
+    }
+
+    public function delete(Post $post) {
+        $post->delete();
+        return redirect()->back()->with('status', 'Post delete Successfully');
     }
 }
