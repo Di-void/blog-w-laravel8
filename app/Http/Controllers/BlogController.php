@@ -50,6 +50,44 @@ class BlogController extends Controller
         return redirect()->back()->with('status', 'Post Created Successfully');
     }
 
+    public function edit(Post $post) {
+        if(auth()->user()->id !== $post->user->id) {
+            abort(403);
+        }
+
+        return view('blog-posts.edit-blog-post', compact('post'));
+    }
+
+    public function update(Request $request, Post $post) {
+        if(auth()->user()->id !== $post->user->id) {
+            abort(403);
+        }
+        $request->validate([
+            "title" => 'required',
+            "image" => 'required | image',
+            "body" => 'required',
+        ]);
+
+        $title = $request->input('title');
+        $postId = $post->id;
+        $slug = Str::slug($title, '-') . "-" . $postId;
+        $body = $request->input('body');
+
+        //File upload
+        $imagePath = 'storage/' . $request->file('image')->store('postImages','public');
+
+
+        $post->title = $title;
+        $post->slug = $slug;
+        $post->body = $body;
+        $post->image_path = $imagePath;
+
+        // Save to database
+        $post->save();
+
+        return redirect()->back()->with('status', 'Post edited Successfully');
+    }
+
 //    public function show ($slug) {
 //        $post = Post::where('slug', $slug)->first();
 //        return view('blog-posts.single-blog', compact('post'));

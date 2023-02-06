@@ -24,6 +24,10 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/create', [BlogController::class, 'create'])->name('blog.create');
 // To single blog page
 Route::get('/blog/{post:slug}', [BlogController::class, 'show'])->name('blog.show');
+// To edit single blog post
+Route::get('/blog/{post}/edit', [BlogController::class, 'edit'])->name('blog.edit');
+// To update single blog post
+Route::put('/blog/{post}/update', [BlogController::class, 'update'])->name('blog.update');
 // To store blog post to database
 Route::post('/blog', [BlogController::class, 'store'])->name('blog.store');
 // To about page

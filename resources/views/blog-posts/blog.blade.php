@@ -25,12 +25,16 @@
         <section class="cards-blog latest-blog">
             @foreach($posts as $post)
                 <div class="card-blog-content">
-                    <div class="post-buttons">
-                        <a href="">Edit</a>
-                        <form action="" method="">
-                            <input type="submit" value="Delete" />
-                        </form>
-                    </div>
+                    @auth
+                        @if(auth()->user()->id === $post->user->id)
+                            <div class="post-buttons">
+                                <a href="{{route('blog.edit', $post)}}">Edit</a>
+                                <form action="" method="">
+                                    <input type="submit" value="Delete" />
+                                </form>
+                            </div>
+                        @endif
+                    @endauth
                     <img src="{{asset($post->image_path)}}" alt="" />
                     <p>
                         {{$post->created_at->diffForHumans()}}
