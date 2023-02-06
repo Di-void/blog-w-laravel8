@@ -6,24 +6,25 @@
 @section('main')
     <main class="container" style="background-color: #fff;">
         <section id="contact-us" >
-            <h1 style="padding-top: 50px;" >Create New Category!</h1>
+            <h1 style="padding-top: 50px;" >Edit Category!</h1>
             @if(session('status'))
                 <p style="color: #fff; width: 100%; font-size: 18px; font-weight: 600; text-align:center; background: #5cb85c; padding: 17px 0; margin-bottom: 6px;" >{{session('status')}}</p>
-        @endif
+            @endif
 
         <!-- Contact Form -->
             <div class="contact-form">
-                <form action="{{route('categories.store')}}" method="post">
+                <form action="{{route('categories.update', $category)}}" method="post">
+                @method('PUT')
                 @csrf
                 <!-- Title -->
                     <label for="title"> <span>Name</span> </label>
-                    <input type="text" id="name" name="name" value="{{old('name')}}">
+                    <input type="text" id="name" name="name" value="{{$category->name}}">
                     @error('name')
                     {{-- The $attributeValue field is/must be $validationRule --}}
                     <p style="color: red; margin-bottom: 25px;">
                         {{$message}}
                     </p>
-                    @enderror
+                @enderror
 
                 <!-- Button -->
                     <input type="submit" value="Submit">
