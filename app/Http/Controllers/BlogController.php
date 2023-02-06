@@ -9,6 +9,11 @@ use Illuminate\Support\Str;
 
 class BlogController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index']);
+    }
+
     public function index () {
         $posts = Post::latest()->get();
         return view('blog-posts.blog', compact('posts'));
